@@ -1,21 +1,34 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styled from "styled-components";
-import { getUsersByLocation } from "../redux/actions/userAction";
+import { getUsersByLocationAction } from "../redux/actions/userAction";
+import LocationInput from "../components/LocationInput";
+import UserList from "../components/UserList";
 
-const Title = styled.h1`
-  font-size: 50px;
-  color: ${({ theme }) => theme.colors.primary};
-`;
 const App = props => {
-  let reduxState = useSelector(state => state);
-  let dispatch = useDispatch()
+  let users = useSelector(state => {
+    return state.user.userList;
+  });
 
-  dispatch(getUsersByLocation("mumbai"))
-  console.log({reduxState})
-  return <Title>My page</Title>;
+  let apiError = useSelector(state => {
+    return state.user.apiError;
+  });
+  return (
+    <Container>
+      <LocationInput search={getUsersByLocationAction} />
+      {apiError && <div>
+          <h2>{apiError.message}</h2>
+          <a href={apiError.documentation_url} target="_blank" >{apiError.documentation_url}</a>
+      </div>}
+      <UserList users={users} />
+    </Container>
+  );
 };
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
-
-export default App
+export default App;
