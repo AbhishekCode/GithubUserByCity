@@ -1,7 +1,8 @@
 {
   "name": "nextapp",
   "version": "1.0.0",
-  "description": "",
+  "description": "Find Github Users from your City",
+  "repository": "https://github.com/ExperimentalProjects/NextProject",
   "main": "index.js",
   "scripts": {
     "dev": "next",
